@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="ms">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Unit Bahagian Pengurusan Data SK Luasong</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/js/all.min.js"></script>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(135deg, #e3f2fd, #64b5f6);
+            text-align: center;
+            animation: fadeIn 1s ease;
+        }
+        header {
+            background: linear-gradient #4b4b4b;
+            color: black;
+            padding: 1rem 0;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .widget-container {
+            display: flex;
+            justify-content: space-around;
+            padding: 10px;
+            background: #f1f1f1;
+            border-bottom: 2px solid #007bff;
+        }
+        .widget {
+            padding: 15px;
+            background: #ffffff;
+            border: 1px solid #ccc;
+            border-radius: 10px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            transition: transform 0.2s ease;
+        }
+        .widget:hover {
+            transform: scale(1.05);
+        }
+        .link-container a {
+            display: block;
+            padding: 10px;
+            margin: 5px;
+            background: #007bff;
+            color: #fff;
+            text-decoration: none;
+            border-radius: 5px;
+            transition: background 0.3s ease;
+        }
+        .link-container a:hover {
+            background: #0056b3;
+        }
+        .search-bar {
+            width: 80%;
+            padding: 10px;
+            margin: 20px 0;
+            border: 1px solid #007bff;
+            border-radius: 5px;
+        }
+        footer {
+            margin-top: 20px;
+            padding: 10px 0;
+            background: #007bff;
+            color: white;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+    </style>
+</head>
+<body>
+    <header>
+    <div style="display: flex; align-items: center; justify-content: space-between;">
+        <img src="cropped-sklt1.jpg" alt="Logo Kiri" style="height: 100px;">
+        <div>
+        <div>
+            <h1><i class="fas fa-school"></i> Unit Bahagian Pengurusan Data SK Luasong</h1>
+ <p>Sekolah Kebangsaan Luasong, Peti Surat 60793, 91017 Tawau, Sabah.</p>
+        <p id="date">
+            <p>Laman web ini dibangunkan untuk memudahkan guru dan pentadbir SK Luasong mengakses platform penting seperti APDM, iDMe, SSDM, dan laporan kehadiran. Ia menyusun semua pautan utama dalam satu tempat, mempercepatkan tugas harian, memudahkan pemantauan murid, dan menggalakkan kerjasama sekolah secara lebih teratur. 🚀</p>
+        </div>
+        </div>
+        <img src="logo madani.png" alt="Logo Kanan" style="height: 100px;">
+    </div>
+    </header>
+
+    <div class="widget-container">
+        <div class="widget" id="dateWidget"><i class="fas fa-calendar-alt"></i> Tarikh</div>
+        <div class="widget" id="visitorCounter"><i class="fas fa-users"></i> Jumlah Pelawat: <span id="visitorCount">0</span></div>
+        <div class="widget" id="weatherWidget"><i class="fas fa-sun"></i> Suhu: 30°C (Contoh)</div>
+    </div>
+
+    <input 
+        type="text" 
+        class="search-bar" 
+        id="searchInput" 
+        placeholder="🔍 Cari dokumen, pautan atau maklumat..."
+    />
+
+    <nav>
+        <div class="link-container" id="linkContainer">
+            <a href="https://apdm.moe.gov.my/" target="_blank"><i class="fas fa-book"></i> APDM</a>
+            <a href="https://idme.moe.gov.my/login" target="_blank"><i class="fas fa-id-card"></i> iDMe</a>
+            <a href="#"><i class="fas fa-user-tie"></i> Guru Bertugas RMT</a>
+            <a href="#"><i class="fas fa-cogs"></i> Pengurusan RMT</a>
+            <a href="https://modulrmt.moe.gov.my/" target="_blank"><i class="fas fa-laptop"></i> Modul RMT (KPM)</a>
+            <a href="#"><i class="fas fa-chart-line"></i> Pelapor Sahsiah (SSDM)</a>
+            <a href="https://www.facebook.com/SKLuasong" target="_blank"><i class="fab fa-facebook"></i> Facebook SK Luasong</a>
+            <a href="https://docs.google.com/spreadsheets/u/1/d/1TmiltqbE1ND74_qebhd-Hdfe_XPbWVhoxhIYeISvnqU/edit?usp=sharing" target="_blank"><i class="fas fa-file-alt"></i> Laporan Kedatangan Harian 2025/2026</a>
+            <a href="#"><i class="fas fa-users-cog"></i> Guru Bertugas Mingguan</a>
+        </div>
+    </nav>
+
+    <footer>
+        <p>&copy; 2025 SK Luasong | Mohammad Fikrey Bin Abdul Gapar</p>
+    </footer>
+
+    <script>
+        function updateDateWidget() {
+            const dateWidget = document.getElementById('dateWidget');
+            const now = new Date();
+            const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+            dateWidget.innerHTML = `<i class="fas fa-calendar-alt"></i> ${now.toLocaleDateString('ms-MY', options)}`;
+        }
+        updateDateWidget();
+        setInterval(updateDateWidget, 60000);
+
+        let visitorCount = localStorage.getItem('visitorCount') || 0;
+        visitorCount++;
+        localStorage.setItem('visitorCount', visitorCount);
+        document.getElementById('visitorCount').innerText = visitorCount;
+
+        function updateWeatherWidget() {
+            const weatherWidget = document.getElementById('weatherWidget');
+            const temp = 30 + Math.floor(Math.random() * 5);
+            weatherWidget.innerHTML = `<i class="fas fa-sun"></i> Suhu: ${temp}°C`;
+        }
+        updateWeatherWidget();
+        setInterval(updateWeatherWidget, 30000);
+
+        const searchInput = document.getElementById('searchInput');
+        const links = document.querySelectorAll('.link-container a');
+        searchInput.addEventListener('input', () => {
+            const filter = searchInput.value.toLowerCase();
+            links.forEach(link => {
+                const text = link.innerText.toLowerCase();
+                link.style.display = text.includes(filter) ? '' : 'none';
+            });
+        });
+    </script>
+</body>
+</html>
